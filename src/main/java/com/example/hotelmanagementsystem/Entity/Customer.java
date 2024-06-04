@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+//hi hi
 @Table(name = "Customer")
 public class Customer {
 
