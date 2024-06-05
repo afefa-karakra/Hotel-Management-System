@@ -1,4 +1,4 @@
 package com.example.hotelmanagementsystem.Service.Interface;
 
-public interface HousekeepingInterface {
+public interface RoomService {
 }

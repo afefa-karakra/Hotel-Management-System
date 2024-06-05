@@ -1,4 +1,4 @@
 package com.example.hotelmanagementsystem.Repository;
 
-public interface EmployeeInterfaceRepository {
+public interface EmployeeRepository {
 }
