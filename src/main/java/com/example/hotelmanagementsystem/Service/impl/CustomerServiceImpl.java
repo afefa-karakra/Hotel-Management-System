@@ -13,11 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
-
     private CustomerRepository customerRepository;
-
-
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
@@ -29,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
     @Override
-    public CustomerDTO getCustomerById(Integer id) {
+    public CustomerDTO getCustomerById(long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer" , "id" , id));
         return convertToDTO(customer);
@@ -42,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO updateCustomer(Integer id, CustomerDTO customerDTO) {
+    public CustomerDTO updateCustomer(long id, CustomerDTO customerDTO) {
         customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer" , "id" , id));
 
@@ -52,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(Integer id) {
+    public void deleteCustomer(long id) {
         customerRepository.deleteById(id);
     }
 

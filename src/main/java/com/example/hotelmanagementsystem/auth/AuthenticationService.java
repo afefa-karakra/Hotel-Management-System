@@ -47,7 +47,7 @@ public class AuthenticationService {
         .name(request.getName())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
-        .customerId(customer.getId())
+        .customerId((int) customer.getId())
         .role(Role.CUSTOMER)
         .build();
 

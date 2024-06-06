@@ -52,7 +52,7 @@ public class CustomerController {
     // If the requested customer id exists, the method returns the customer, otherwise it returns HTTP status code 404
     @ApiOperation(value = "Get customer by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer id, Authentication auth) {
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable long id, Authentication auth) {
 //        UserDetails userDetails = (UserDetails) auth.getPrincipal();
 //        User user = (User) userDetails;
 //        System.out.println(user);
@@ -86,7 +86,7 @@ public class CustomerController {
 
     @ApiOperation(value = "Update customer")
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Integer id, @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable long id, @RequestBody CustomerDTO customerDTO) {
         // Calling the updateCustomer method of the customerService with the id of the customer to update and the new customer data
         // The updated customer is returned
         return ResponseEntity.ok(customerService.updateCustomer(id, customerDTO));
@@ -96,7 +96,7 @@ public class CustomerController {
 
     @ApiOperation(value = "Delete customer by ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable long id) {
         // Calling the deleteCustomer method of the customerService with the id of the customer to delete
         // After successful deletion, it returns an HTTP 200 status code without body content
 
