@@ -27,4 +27,13 @@ public class Reservation {
 
     @Column(name = "numberOfCheckers" , nullable = false)
     private int numberOfCheckers;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roomIdFK")
+    private Room room;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customerIdFK")
+    private Customer customer;
 }

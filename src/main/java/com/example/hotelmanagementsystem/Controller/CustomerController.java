@@ -84,12 +84,18 @@ public class CustomerController {
     // This method updates a specific customer.
     // The @PutMapping annotation informs that this method should respond to HTTP PUT requests
 
+//    @ApiOperation(value = "Update customer")
+//    @PutMapping("/{id}")
+//    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable long id, @RequestBody CustomerDTO customerDTO) {
+//        // Calling the updateCustomer method of the customerService with the id of the customer to update and the new customer data
+//        // The updated customer is returned
+//        return ResponseEntity.ok(customerService.updateCustomer(id, customerDTO));
+//    }
     @ApiOperation(value = "Update customer")
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable long id, @RequestBody CustomerDTO customerDTO) {
-        // Calling the updateCustomer method of the customerService with the id of the customer to update and the new customer data
-        // The updated customer is returned
-        return ResponseEntity.ok(customerService.updateCustomer(id, customerDTO));
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDTO);
+        return ResponseEntity.ok(updatedCustomer);
     }
 // This method deletes a specific customer.
 // The @DeleteMapping annotation informs that this method should respond to HTTP DELETE requests

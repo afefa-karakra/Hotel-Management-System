@@ -24,7 +24,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public List<RoomDTO> getAllRoom() {
         List<Room> room = roomRepository.findAll();
-        return room.stream().map(employee -> mapToDTO(employee))
+        return room.stream().map(rooms -> mapToDTO(rooms))
                 .collect(Collectors.toList());
     }
 
@@ -58,8 +58,6 @@ public class RoomServiceImpl implements RoomService {
     public void deleteRoom(long id) {
         Room room = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room", "id", id));
         roomRepository.delete(room);
-
-
     }
 
     private RoomDTO mapToDTO (Room room){
@@ -68,7 +66,14 @@ public class RoomServiceImpl implements RoomService {
         roomDTO.setId(room.getId());
         roomDTO.setType(room.getType());
         roomDTO.setStatus(room.getStatus());
-       // roomDTO.setAvailable(room.get);
+        roomDTO.setSize(room.getSize());
+        roomDTO.setCapacity(room.getCapacity());
+        roomDTO.setFacilities(room.getFacilities());
+        roomDTO.setPrice(room.getPrice());
+        roomDTO.setAvailable(room.isAvailable());
+
+
+
 
         return roomDTO;
 
@@ -78,7 +83,12 @@ public class RoomServiceImpl implements RoomService {
         Room room = new Room();
         room.setId(roomDTO.getId());
         room.setType(roomDTO.getType());
-        room.setStatus(room.getStatus());
+        room.setStatus(roomDTO.getStatus());
+        room.setFacilities(roomDTO.getFacilities());
+        room.setSize(roomDTO.getSize());
+        room.setCapacity(roomDTO.getCapacity());
+        room.setAvailable(roomDTO.isAvailable());
+        room.setPrice(roomDTO.getPrice());
 
         return room;
     }

@@ -1,5 +1,6 @@
 package com.example.hotelmanagementsystem.Controller;
 
+import com.example.hotelmanagementsystem.DTO.CustomerDTO;
 import com.example.hotelmanagementsystem.DTO.EmployeeDTO;
 import com.example.hotelmanagementsystem.Exception.BadRequestException;
 import com.example.hotelmanagementsystem.Service.Interface.EmployeeService;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,9 +31,11 @@ public class EmployeeController {
 
     @ApiOperation(value = "Get Employee by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDTO> getEmployeeById(@RequestParam long id){
+    public ResponseEntity<EmployeeDTO> getCustomerById(@PathVariable long id, Authentication auth) {
 
-        return ResponseEntity.ok(employeeService.getEmployeeById(id));
+        EmployeeDTO employeeDTO = employeeService.getEmployeeById(id);
+        return ResponseEntity.ok(employeeDTO);
+
     }
 
     @ApiOperation(value = "Get all Employee")

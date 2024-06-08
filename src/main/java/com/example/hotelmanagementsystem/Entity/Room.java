@@ -25,4 +25,16 @@ public class Room {
 
     @Column(name = "status" , nullable = false)
     private String status;
+
+    @Column(name = "price" , nullable = false)
+    private double price;
+
+    @Column(name = "facilities" , nullable = false)
+    private String facilities;
+
+    @Column(name = "capacity" , nullable = false)
+    private int capacity;
+
+    @Column(name = "size" , nullable = false)
+    private double size;
 }
