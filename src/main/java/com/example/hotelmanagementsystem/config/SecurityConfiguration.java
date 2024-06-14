@@ -25,19 +25,27 @@ public class SecurityConfiguration {
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
 
+  private static final String[] WHITE_LIST_URL = {"/api/v1/employee/",
+          "/api/v1/employee/**" ,
+          "/api/v1/HousekeepingTasks/**",
+          "/api/v1/room"};
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http
             .csrf(AbstractHttpConfigurer::disable)
             .cors(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth
+            .authorizeHttpRequests(auth ->
+                     auth.requestMatchers(WHITE_LIST_URL).permitAll()
                     .requestMatchers("/api/v1/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
                    // .requestMatchers("api/v1/employee").permitAll()
                  //   .requestMatchers(HttpMethod.GET, "/api/v1/products").permitAll()
                  //   .requestMatchers(HttpMethod.GET, "/api/v1/products/{id}").permitAll()
                 //    .requestMatchers(HttpMethod.PUT, "/api/v1/employee/{id}").permitAll()
                      .requestMatchers("/api/v1/reservation").permitAll()
                      .requestMatchers(HttpMethod.GET, "/api/v1/reservation/{id}").permitAll()
+                     .requestMatchers(HttpMethod.GET, "/api/v1/reservation/name/{name}").permitAll()
                      .requestMatchers(HttpMethod.DELETE, "/api/v1/reservation/{id}").permitAll()
                      .requestMatchers(HttpMethod.POST, "/api/v1/reservation").permitAll()
                      .requestMatchers(HttpMethod.PUT, "/api/v1/reservation/{id}").permitAll()
@@ -54,6 +62,7 @@ public class SecurityConfiguration {
                       .requestMatchers(HttpMethod.DELETE, "/api/v1/employee/{id}").permitAll()
                       .requestMatchers(HttpMethod.PUT, "/api/v1/employee/{id}").permitAll()
                       .requestMatchers(HttpMethod.POST, "/api/v1/employee").permitAll()
+                            .requestMatchers("/api/v1/customers/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/v1/customers").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/v1/customers/{id}").permitAll()
                             .requestMatchers(HttpMethod.PUT, "/api/v1/customers/{id}").permitAll()

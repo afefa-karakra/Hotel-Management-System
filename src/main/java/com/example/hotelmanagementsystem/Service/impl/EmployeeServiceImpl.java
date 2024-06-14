@@ -63,6 +63,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Employee mapToEntity (EmployeeDTO employeeDTO){
         Employee employee = new Employee();
         employee.setName(employeeDTO.getName());
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setPassword(employeeDTO.getPassword());
 
         return  employee;
 
@@ -72,6 +74,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         employeeDTO.setId(employee.getId());
         employeeDTO.setName(employee.getName());
+        employeeDTO.setEmail(employee.getEmail());
+        employeeDTO.setPassword(employee.getPassword());
 
         return  employeeDTO;
     }

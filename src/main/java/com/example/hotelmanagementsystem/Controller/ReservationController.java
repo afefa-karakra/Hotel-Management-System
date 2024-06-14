@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,5 +45,11 @@ public class ReservationController {
     @GetMapping
     public ResponseEntity<List<ReservationDTO>> getAllReservation(){
         return ResponseEntity.ok().body(reservationService.getAllReservation());
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<ReservationDTO>> getReservationByCustomerName(@RequestParam("name")String name ){
+        List<ReservationDTO> reservations = reservationService.getReservationByCustomerName(name);
+        return ResponseEntity.ok().body(reservations);
     }
 }

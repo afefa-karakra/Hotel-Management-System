@@ -2,6 +2,7 @@ package com.example.hotelmanagementsystem.Controller;
 
 
 import com.example.hotelmanagementsystem.DTO.CustomerDTO;
+import com.example.hotelmanagementsystem.Entity.Customer;
 import com.example.hotelmanagementsystem.Service.Interface.CustomerService;
 import com.example.hotelmanagementsystem.Entity.User;
 //import io.swagger.annotations.Api;
@@ -93,7 +94,7 @@ public class CustomerController {
 //    }
     @ApiOperation(value = "Update customer")
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable long id, @RequestBody CustomerDTO customerDTO) {
         CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDTO);
         return ResponseEntity.ok(updatedCustomer);
     }
@@ -108,5 +109,12 @@ public class CustomerController {
 
         customerService.deleteCustomer(id);
         return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "find customer by name")
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<CustomerDTO>> findCustomerByName(@PathVariable String name) {
+        List<CustomerDTO> customerList = customerService.findCustomerByName(name);
+        return ResponseEntity.ok(customerList);
     }
 }

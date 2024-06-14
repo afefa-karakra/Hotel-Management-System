@@ -20,7 +20,7 @@ public class Employee {
     @Column(name = "name" , nullable = false)
     private String name;
 
-    @Column(name = "email" , nullable = false)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "password", nullable = false)

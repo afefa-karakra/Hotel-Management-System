@@ -45,27 +45,32 @@ public class EmployeeController {
         return ResponseEntity.ok().body(employeeService.getAllEmployee());
     }
 
+//    @ApiOperation(value = "Create a new Employee")
+//    @PostMapping
+//    public ResponseEntity<EmployeeDTO> createEmployee (@Valid @RequestBody EmployeeDTO employeeDTO ) {
+//
+//        if (employeeDTO.getName() ==null) {
+//            log.error("Cannot have an name {}", employeeDTO);
+//            throw new BadRequestException(EmployeeController.class.getSimpleName(),
+//                    "Name");
+//        }
+//
+//        return ResponseEntity.ok().body(employeeService.createEmployee(employeeDTO));
+//        //return new ResponseEntity(employeeServiceInterface.createEmployee(employeeDTO), HttpStatus.CREATED);
+//
+//    }
+
     @ApiOperation(value = "Create a new Employee")
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee (@Valid @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
 
-        if (employeeDTO.getName() ==null) {
-            log.error("Cannot have an name {}", employeeDTO);
-            throw new BadRequestException(EmployeeController.class.getSimpleName(),
-                    "Name");
-        }
-
-        return ResponseEntity.ok().body(employeeService.createEmployee(employeeDTO));
-        //return new ResponseEntity(employeeServiceInterface.createEmployee(employeeDTO), HttpStatus.CREATED);
-
+        return ResponseEntity.ok(employeeService.createEmployee(employeeDTO));
     }
     @ApiOperation(value = "Update Employee")
-    @PutMapping ("/{id}")
-    public ResponseEntity<EmployeeDTO> updateEmployee
-            (@Valid @RequestBody EmployeeDTO employeeDTO
-                    , @PathVariable(name = "id") long id) {
-
-        return new ResponseEntity<>(employeeService.updateEmployee(employeeDTO, id), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeDTO> updateCustomer(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO) {
+        EmployeeDTO updatedEmployee = employeeService.updateEmployee(employeeDTO , id);
+        return ResponseEntity.ok(updatedEmployee);
     }
 
     @ApiOperation(value = "Delete Employee by ID")

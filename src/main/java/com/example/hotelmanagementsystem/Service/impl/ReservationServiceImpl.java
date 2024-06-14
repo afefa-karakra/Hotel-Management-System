@@ -2,11 +2,14 @@ package com.example.hotelmanagementsystem.Service.impl;
 
 import com.example.hotelmanagementsystem.DTO.EmployeeDTO;
 import com.example.hotelmanagementsystem.DTO.ReservationDTO;
+import com.example.hotelmanagementsystem.Entity.Customer;
 import com.example.hotelmanagementsystem.Entity.Employee;
 import com.example.hotelmanagementsystem.Entity.Reservation;
 import com.example.hotelmanagementsystem.Entity.Room;
 import com.example.hotelmanagementsystem.Exception.ResourceNotFoundException;
+import com.example.hotelmanagementsystem.Repository.CustomerRepository;
 import com.example.hotelmanagementsystem.Repository.ReservationRepository;
+import com.example.hotelmanagementsystem.Repository.RoomRepository;
 import com.example.hotelmanagementsystem.Service.Interface.ReservationService;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +20,15 @@ import java.util.stream.Collectors;
 public class ReservationServiceImpl implements ReservationService {
 
     private ReservationRepository reservationRepository;
+    private CustomerRepository customerRepository;
 
-    public ReservationServiceImpl(ReservationRepository reservationRepository) {
+    private RoomRepository roomRepository;
+
+
+    public ReservationServiceImpl(ReservationRepository reservationRepository , CustomerRepository customerRepository , RoomRepository roomRepository) {
         this.reservationRepository = reservationRepository;
+        this.customerRepository = customerRepository;
+        this.roomRepository = roomRepository;
     }
 
     @Override
@@ -40,6 +49,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDTO updateReservation(long id, ReservationDTO reservationDTO) {
+
         reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reservation" , "id" , id));
 
         Reservation reservation = mapToEntity(reservationDTO);
@@ -56,19 +66,38 @@ public class ReservationServiceImpl implements ReservationService {
 
     }
 
+    @Override
+    public List<ReservationDTO> getReservationByCustomerName(String name) {
+        List<Reservation> entityClasses = reservationRepository.getReservationByCustomerName(name);
+        return entityClasses.stream()
+                .map(reservation -> mapToDTO(reservation))
+                .collect(Collectors.toList());
+    }
+
+
+
     public ReservationDTO mapToDTO (Reservation reservation ){
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setId(reservation.getId());
         reservationDTO.setCheckOut(reservation.getCheckOut());
         reservationDTO.setCheckIn(reservation.getCheckIn());
         reservationDTO.setNumberOfCheckers(reservation.getNumberOfCheckers());
-        reservationDTO.setCustomerName(reservation.getCustomer().getName());
 
-        reservationDTO.setRoomId(reservation.getRoom().getId());
-        reservationDTO.setCustomerId(reservation.getCustomer().getId());
+    //    reservationDTO.setCustomerName(reservation.getCustomer().getName());
+    //    reservationDTO.setRoomId(reservation.getRoom().getId());
+     //   reservationDTO.setCustomerId(reservation.getCustomer().getId());
 
+        if (reservation.getCustomer() != null) {
+            reservationDTO.setCustomerName(reservation.getCustomer().getName());
+        }
 
+        if (reservation.getRoom() != null) {
+            reservationDTO.setRoomId(reservation.getRoom().getId());
+        }
 
+        if (reservation.getCustomer() != null) {
+            reservationDTO.setCustomerId(reservation.getCustomer().getId());
+        }
 
         return reservationDTO;
     }
@@ -79,7 +108,15 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setCheckOut(reservationDTO.getCheckOut());
         reservation.setNumberOfCheckers(reservationDTO.getNumberOfCheckers());
 
-      //  reservation.setCustomer(reservationDTO.getCustomerName());
+        if (reservationDTO.getCustomerName() != null) {
+            Customer customer = customerRepository.findById(reservationDTO.getCustomerId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", reservationDTO.getCustomerId()));
+            reservation.setCustomer(customer);
+        }
+        Room room = roomRepository.findById(reservationDTO.getRoomId())
+                .orElseThrow(() -> new ResourceNotFoundException("Room", "id", reservationDTO.getRoomId()));
+            reservation.setRoom(room);
+
 
         return reservation;
 

@@ -13,6 +13,6 @@ public class EmployeeDTO {
     private long id;
     private String name;
     private String email;
-    @JsonIgnore
+   // @JsonIgnore
     private String password;
 }

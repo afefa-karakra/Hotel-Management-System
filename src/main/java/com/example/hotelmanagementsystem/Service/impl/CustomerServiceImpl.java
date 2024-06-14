@@ -54,6 +54,16 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 
+    @Override
+    public List<CustomerDTO> findCustomerByName(String customerName) {
+        List<Customer> customers = customerRepository.findCustomerByName(customerName);
+        return customers.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+
+
     // Method to convert Customer to CustomerDTO
     private CustomerDTO convertToDTO(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
