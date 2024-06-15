@@ -1,9 +1,11 @@
 package com.example.hotelmanagementsystem.Controller;
 
 
+import com.example.hotelmanagementsystem.DTO.CustomerDTO;
 import com.example.hotelmanagementsystem.DTO.EmployeeDTO;
 import com.example.hotelmanagementsystem.DTO.RoomDTO;
 import com.example.hotelmanagementsystem.Exception.BadRequestException;
+import com.example.hotelmanagementsystem.Service.Interface.CustomerService;
 import com.example.hotelmanagementsystem.Service.Interface.RoomService;
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
@@ -21,9 +23,11 @@ import java.util.List;
 public class RoomController {
 
     RoomService roomService;
+    CustomerService customerService;
 
-    public RoomController(RoomService roomService) {
+    public RoomController(RoomService roomService , CustomerService customerService) {
         this.roomService = roomService;
+        this.customerService = customerService;
     }
 
     private final Logger log = LoggerFactory.getLogger(EmployeeController.class);
@@ -71,5 +75,18 @@ public class RoomController {
     public ResponseEntity<String> deleteRoom(@PathVariable(name = "id") long id){
         roomService.deleteRoom(id);
         return new ResponseEntity<>("Deleted successfully!", HttpStatus.OK);
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<RoomDTO>> findAvailableRoom(@RequestParam boolean available) {
+        List<RoomDTO> availableRooms = roomService.findAvailableRoom(available);
+        return ResponseEntity.ok(availableRooms);
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<String> getCustomerById(@PathVariable long id) {
+        CustomerDTO customerDTO = customerService.getCustomerById(id);
+
+        return ResponseEntity.ok("Customer ID: " + id);
     }
 }

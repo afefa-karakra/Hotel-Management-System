@@ -12,8 +12,11 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
 
-    @Query("SELECT r.numberOfCheckers FROM Reservation r JOIN Customer c ON r.customer.id = c.id WHERE c.name LIKE  %:customerName% ")
+    @Query("SELECT r FROM Reservation r JOIN Customer c ON r.customer.id = c.id WHERE c.name LIKE  %:customerName% ")
       List<Reservation> getReservationByCustomerName (@Param("customerName")String customerName);
 
+
+    @Query("SELECT r FROM Reservation r WHERE r.customer.id = :id")
+    List<Reservation> getReservationByCustomerID(@Param("id") long id);
 
 }

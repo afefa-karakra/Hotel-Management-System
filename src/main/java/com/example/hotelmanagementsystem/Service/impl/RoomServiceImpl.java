@@ -2,6 +2,7 @@ package com.example.hotelmanagementsystem.Service.impl;
 
 import com.example.hotelmanagementsystem.DTO.EmployeeDTO;
 import com.example.hotelmanagementsystem.DTO.RoomDTO;
+import com.example.hotelmanagementsystem.Entity.Customer;
 import com.example.hotelmanagementsystem.Entity.Employee;
 import com.example.hotelmanagementsystem.Entity.Room;
 import com.example.hotelmanagementsystem.Exception.ResourceNotFoundException;
@@ -58,6 +59,14 @@ public class RoomServiceImpl implements RoomService {
     public void deleteRoom(long id) {
         Room room = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room", "id", id));
         roomRepository.delete(room);
+    }
+
+    @Override
+    public List<RoomDTO> findAvailableRoom(boolean available) {
+        List<Room> rooms = roomRepository.findAvailableRoom(available);
+        return rooms.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     private RoomDTO mapToDTO (Room room){

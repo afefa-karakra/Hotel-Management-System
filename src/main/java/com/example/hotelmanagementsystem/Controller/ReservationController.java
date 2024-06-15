@@ -47,9 +47,15 @@ public class ReservationController {
         return ResponseEntity.ok().body(reservationService.getAllReservation());
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/name")
     public ResponseEntity<List<ReservationDTO>> getReservationByCustomerName(@RequestParam("name")String name ){
         List<ReservationDTO> reservations = reservationService.getReservationByCustomerName(name);
         return ResponseEntity.ok().body(reservations);
+    }
+
+    @GetMapping("/CustomerID")
+    public ResponseEntity<List<ReservationDTO>> getReservationByCustomerID(@RequestParam("id") long id) {
+        List<ReservationDTO> reservations = reservationService.getReservationByCustomerID(id);
+        return ResponseEntity.ok(reservations);
     }
 }
