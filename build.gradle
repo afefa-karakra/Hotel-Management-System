@@ -42,6 +42,17 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // JAXB dependencies for Java 11+
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+
+    // SpringDoc dependencies
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.1.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-common:2.1.0'
+
+    // Optional: Update Jackson if necessary
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.4'
 }
 
 tasks.named('test') {
