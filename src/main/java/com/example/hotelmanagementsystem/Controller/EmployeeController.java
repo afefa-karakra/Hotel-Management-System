@@ -54,7 +54,7 @@ public class EmployeeController {
                     )
             }
     )
-    public ResponseEntity<EmployeeDTO> getCustomerById(@PathVariable long id, Authentication auth) {
+    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable long id, Authentication auth) {
 
         EmployeeDTO employeeDTO = employeeService.getEmployeeById(id);
         return ResponseEntity.ok(employeeDTO);
@@ -131,7 +131,7 @@ public class EmployeeController {
                     )
             }
     )
-    public ResponseEntity<EmployeeDTO> updateCustomer(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO updatedEmployee = employeeService.updateEmployee(employeeDTO , id);
         return ResponseEntity.ok(updatedEmployee);
     }
