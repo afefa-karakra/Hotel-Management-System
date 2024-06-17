@@ -19,6 +19,9 @@ public class Reservation {
     @Column(name = "id")
     private long id ;
 
+    @Column(name = "ReservationDate" , nullable = false)
+    private Date ReservationDate;
+
     @Column(name = "checkIn" , nullable = false)
     private Date checkIn;
 

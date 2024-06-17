@@ -13,6 +13,7 @@ import com.example.hotelmanagementsystem.Repository.RoomRepository;
 import com.example.hotelmanagementsystem.Service.Interface.ReservationService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,6 +83,11 @@ public class ReservationServiceImpl implements ReservationService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ReservationDTO> getReservationsByDate(Date date) {
+        return null;
+    }
+
 
     public ReservationDTO mapToDTO (Reservation reservation ){
         ReservationDTO reservationDTO = new ReservationDTO();
@@ -89,6 +95,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservationDTO.setCheckOut(reservation.getCheckOut());
         reservationDTO.setCheckIn(reservation.getCheckIn());
         reservationDTO.setNumberOfCheckers(reservation.getNumberOfCheckers());
+       reservationDTO.setReservationDate(reservation.getReservationDate());
 
 
         if (reservation.getCustomer() != null) {
@@ -112,6 +119,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setCheckIn(reservationDTO.getCheckIn());
         reservation.setCheckOut(reservationDTO.getCheckOut());
         reservation.setNumberOfCheckers(reservationDTO.getNumberOfCheckers());
+        reservation.setReservationDate(reservationDTO.getReservationDate());
 
         if (reservationDTO.getCustomerName() != null) {
             Customer customer = customerRepository.findById(reservationDTO.getCustomerId())

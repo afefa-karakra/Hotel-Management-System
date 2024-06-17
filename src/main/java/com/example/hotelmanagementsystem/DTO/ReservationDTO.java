@@ -15,6 +15,7 @@ public class ReservationDTO {
     private Date checkIn;
     private Date checkOut;
     private int numberOfCheckers;
+    private Date ReservationDate;
 
     private long customerId;
     private String customerName;
