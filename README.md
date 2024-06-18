@@ -54,4 +54,4 @@ docker run -p 8080:8080 <image_name>
 The application should now be running in a Docker container on http://localhost:8080.
 
 #### what we have learned from this project:
-Everything has been mentioned previously
+Everything has been mentioned previously as (secured API endpoints and using Swagger documentation,also a Docker configuration).
