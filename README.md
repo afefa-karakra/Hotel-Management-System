@@ -6,6 +6,9 @@ resource :
 * Reservation: enable the customer to book room(s), modify, and cancel a reservation
 * Room: managing room price, facilities, capacity, size, types, availability, and status 
 * Billing: manage invoices for customer reservations.
+  
+## ER diagram
+![image](https://github.com/afefa-karakra/Hotel-Management-System/assets/121513237/ec61ab4c-1847-4cc0-ab9a-25e720aaa157)
 
 Hotel Management System  contains a Spring Boot application that manages Hotel System with database schema,with secured  API endpoints and available Swagger documentation,also includes a Docker configuration for easy setup .
 ## To building the application:
