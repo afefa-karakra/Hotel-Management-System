@@ -39,6 +39,9 @@ Select the Postman collection file provided (<collection_file_name>.json).
 
 The Swagger documentation requests will be available in the imported collection.
 
+### API Documentation
+to have documentation includes information about all endpoints, authentication, and models. at http://localhost:8080/swagger-ui/index.html while the application is running.
+
 ### To containerize with Docker
 To containerize the application using Docker follow steps below:
 
