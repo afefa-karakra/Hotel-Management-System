@@ -5,6 +5,7 @@ import com.example.hotelmanagementsystem.DTO.EmployeeDTO;
 import com.example.hotelmanagementsystem.Exception.BadRequestException;
 import com.example.hotelmanagementsystem.Service.Interface.EmployeeService;
 import com.example.hotelmanagementsystem.Service.impl.EmployeeServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "Employee")
 @RestController
 @RequestMapping("/api/v1/employee")
 public class EmployeeController {

@@ -9,6 +9,7 @@ import com.example.hotelmanagementsystem.Entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.links.Link;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,6 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -61,14 +67,14 @@ public class CustomerController {
     )
     public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
         // Calling the getAllCustomers method of the customerService
-        List<CustomerDTO> cs=customerService.getAllCustomers();
+      List<CustomerDTO> cs=customerService.getAllCustomers();
 //        for ( CustomerDTO c: cs ) {
 //            // Linking each customer with their respective orders
-//            Link ordersLink = linkTo(methodOn(OrderController.class)
+//            Link ordersLink = linkTo(methodOn(RoomController.class)
 //                    .getAllOrdersByCustomer(c.getId()))
-//                    .withRel("customerOrders");
+//                    .withRel("customerRoom");
 //            c.add(ordersLink);
-//        }
+//     }
         return ResponseEntity.ok(cs);
     }
     // This method fetches a specific customer by their id.

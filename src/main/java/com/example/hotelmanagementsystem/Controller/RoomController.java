@@ -7,6 +7,7 @@ import com.example.hotelmanagementsystem.DTO.RoomDTO;
 import com.example.hotelmanagementsystem.Exception.BadRequestException;
 import com.example.hotelmanagementsystem.Service.Interface.CustomerService;
 import com.example.hotelmanagementsystem.Service.Interface.RoomService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "Room")
 @RestController
 @RequestMapping("/api/v1/room")
 public class RoomController {

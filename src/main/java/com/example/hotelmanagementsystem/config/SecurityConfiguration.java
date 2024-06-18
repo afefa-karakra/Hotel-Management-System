@@ -29,6 +29,9 @@ public class SecurityConfiguration {
           "/api/v1/employee/**" ,
           "/api/v1/HousekeepingTasks/**",
           "/api/v1/billing/**",
+          "/api/v2/room/**",
+          "/api/room/**",
+          "/api/rooms/**",
           "/api/v1/room"};
 
   @Bean

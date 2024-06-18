@@ -3,6 +3,7 @@ package com.example.hotelmanagementsystem.Controller;
 import com.example.hotelmanagementsystem.DTO.EmployeeDTO;
 import com.example.hotelmanagementsystem.DTO.ReservationDTO;
 import com.example.hotelmanagementsystem.Service.Interface.ReservationService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+@Api(tags = "Reservation")
 @RestController
 @RequestMapping("/api/v1/reservation")
 public class ReservationController {
