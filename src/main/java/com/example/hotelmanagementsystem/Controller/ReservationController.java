@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -178,6 +179,33 @@ public class ReservationController {
     )
     public ResponseEntity<List<ReservationDTO>> getReservationByCustomerID(@RequestParam("id") long id) {
         List<ReservationDTO> reservations = reservationService.getReservationByCustomerID(id);
+        return ResponseEntity.ok(reservations);
+    }
+
+
+
+
+    @GetMapping("/ReservationDate")
+    @Operation(
+            security = @SecurityRequirement(name = "token"),
+            description = "find Reservation By  Date",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Successfully find Reservation By Date",
+                            content = @Content(
+                                    mediaType ="application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value = "{\"code\" : 201, \"Status\" : \"Created!\", \"Message\" :\"Successfully find Reservation By Date\"}"
+                                            ),
+                                    }
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<List<ReservationDTO>> getReservationByDate(@RequestParam("ReservationDate") Date date) {
+        List<ReservationDTO> reservations = reservationService.getReservationsByDate(date);
         return ResponseEntity.ok(reservations);
     }
 }

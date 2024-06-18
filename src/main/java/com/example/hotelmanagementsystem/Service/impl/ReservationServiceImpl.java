@@ -85,7 +85,11 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationDTO> getReservationsByDate(Date date) {
-        return null;
+
+        List<Reservation> reservations = reservationRepository.getReservationByDate(date);
+        return reservations.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
 
@@ -107,9 +111,6 @@ public class ReservationServiceImpl implements ReservationService {
             reservationDTO.setRoomId(reservation.getRoom().getId());
         }
 
-//        if (reservation.getCustomer() != null) {
-//
-//        }
 
         return reservationDTO;
     }
