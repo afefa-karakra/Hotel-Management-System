@@ -25,14 +25,15 @@ public class SecurityConfiguration {
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
 
-  private static final String[] WHITE_LIST_URL = {"/api/v1/employee/",
-          "/api/v1/employee/**" ,
+  private static final String[] WHITE_LIST_URL = {
+        //  "/api/v1/employee/**" ,
           "/api/v1/HousekeepingTasks/**",
           "/api/v1/billing/**",
-          "/api/v2/room/**",
-          "/api/room/**",
-          "/api/rooms/**",
-          "/api/v1/room"};
+       //   "/api/v2/room/**",
+       //   "/api/room/**",
+      //    "/api/rooms/**",
+      //    "/api/v1/room"
+  };
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -42,46 +43,22 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth ->
                      auth.requestMatchers(WHITE_LIST_URL).permitAll()
                     .requestMatchers("/api/v1/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                    .requestMatchers("/api/v1/employee/**").hasAuthority(ADMIN.name())
+                 //    .requestMatchers("/api/v1/reservation").permitAll()
+                     .requestMatchers(HttpMethod.GET, "/api/v1/reservation/{id}").hasAnyAuthority(CUSTOMER.name() , ADMIN.name())
+                     .requestMatchers(HttpMethod.GET, "/api/v1/reservation/name/{name}").hasAnyAuthority(CUSTOMER.name() , ADMIN.name())
+                     .requestMatchers(HttpMethod.DELETE, "/api/v1/reservation/{id}").hasAuthority(ADMIN.name())
+                     .requestMatchers(HttpMethod.POST, "/api/v1/reservation").hasAuthority(ADMIN.name())
+                     .requestMatchers(HttpMethod.PUT, "/api/v1/reservation/{id}").hasAuthority(ADMIN.name())
 
-                   // .requestMatchers("api/v1/employee").permitAll()
-                 //   .requestMatchers(HttpMethod.GET, "/api/v1/products").permitAll()
-                 //   .requestMatchers(HttpMethod.GET, "/api/v1/products/{id}").permitAll()
-                //    .requestMatchers(HttpMethod.PUT, "/api/v1/employee/{id}").permitAll()
-                     .requestMatchers("/api/v1/reservation").permitAll()
-                     .requestMatchers(HttpMethod.GET, "/api/v1/reservation/{id}").permitAll()
-                     .requestMatchers(HttpMethod.GET, "/api/v1/reservation/name/{name}").permitAll()
-                     .requestMatchers(HttpMethod.DELETE, "/api/v1/reservation/{id}").permitAll()
-                     .requestMatchers(HttpMethod.POST, "/api/v1/reservation").permitAll()
-                     .requestMatchers(HttpMethod.PUT, "/api/v1/reservation/{id}").permitAll()
-                     .requestMatchers("/api/v1/room").permitAll()
-                     .requestMatchers(HttpMethod.GET, "/api/v1/room").permitAll()
-                     .requestMatchers(HttpMethod.GET, "/api/v1/room/{id}").permitAll()
-                     .requestMatchers(HttpMethod.DELETE, "/api/v1/room/{id}").permitAll()
-                     .requestMatchers(HttpMethod.PUT, "/api/v1/room/{id}").permitAll()
-                     .requestMatchers(HttpMethod.POST, "/api/v1/room/{id}").permitAll()
-                     .requestMatchers("/api/v1/employee").permitAll()
-                     .requestMatchers(HttpMethod.GET, "/api/v1/employee/{id}").permitAll()
-                      .requestMatchers("/api/v1/employee").permitAll()
-                      .requestMatchers("/api/v1/employee/{id}").permitAll()
-                      .requestMatchers(HttpMethod.DELETE, "/api/v1/employee/{id}").permitAll()
-                      .requestMatchers(HttpMethod.PUT, "/api/v1/employee/{id}").permitAll()
-                      .requestMatchers(HttpMethod.POST, "/api/v1/employee").permitAll()
+                     .requestMatchers("/api/v1/room/**").hasAuthority(ADMIN.name())
+
+
                             .requestMatchers("/api/v1/customers/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/v1/customers").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/v1/customers/{id}").permitAll()
                             .requestMatchers(HttpMethod.PUT, "/api/v1/customers/{id}").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/v1/customers").permitAll()
-                //    .requestMatchers("/api/v1/employee").hasAuthority(CUSTOMER.name())
-               //     .requestMatchers("/api/v1/employee/{id}").hasAuthority(CUSTOMER.name())
-//                    .requestMatchers("/api/v1/products").hasAuthority(ADMIN.name())
-                //    .requestMatchers("/api/v1/customers").hasAnyAuthority(CUSTOMER.name() , ADMIN.name())
-                //    .requestMatchers("/api/v1/customers/{id}").hasAnyAuthority(ADMIN.name(), CUSTOMER.name())
-//                    .requestMatchers("/api/v1/products/{productId}/stocks").hasAuthority(ADMIN.name())
-//                    .requestMatchers("/api/v1/products/{productId}/stocks/{id}").hasAuthority(ADMIN.name())
-//                    .requestMatchers("/api/v1/customers/{customerId}/orders").hasAnyAuthority(CUSTOMER.name(), ADMIN.name())
-//                    .requestMatchers("/api/v1/customers/{customerId}/orders/{id}").hasAnyAuthority(CUSTOMER.name(), ADMIN.name())
-//                    .requestMatchers("/api/v1/customers/{customerId}/orders/{orderId}/products").hasAnyAuthority(CUSTOMER.name(), ADMIN.name())
-//                    .requestMatchers("/api/v1/customers/{customerId}/orders/{orderId}/products/{productId}").hasAnyAuthority(CUSTOMER.name(), ADMIN.name())
                     .anyRequest().authenticated()
 
             )

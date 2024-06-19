@@ -7,11 +7,14 @@ import com.example.hotelmanagementsystem.Entity.Employee;
 import com.example.hotelmanagementsystem.Entity.Reservation;
 import com.example.hotelmanagementsystem.Entity.Room;
 import com.example.hotelmanagementsystem.Exception.ResourceNotFoundException;
+import com.example.hotelmanagementsystem.Repository.BillingRepository;
 import com.example.hotelmanagementsystem.Repository.CustomerRepository;
 import com.example.hotelmanagementsystem.Repository.ReservationRepository;
 import com.example.hotelmanagementsystem.Repository.RoomRepository;
+import com.example.hotelmanagementsystem.Service.Interface.BillingService;
 import com.example.hotelmanagementsystem.Service.Interface.ReservationService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -25,11 +28,14 @@ public class ReservationServiceImpl implements ReservationService {
 
     private RoomRepository roomRepository;
 
+    private BillingRepository billingRepository;
 
-    public ReservationServiceImpl(ReservationRepository reservationRepository , CustomerRepository customerRepository , RoomRepository roomRepository) {
+
+    public ReservationServiceImpl(ReservationRepository reservationRepository , CustomerRepository customerRepository , RoomRepository roomRepository ,BillingRepository billingRepository) {
         this.reservationRepository = reservationRepository;
         this.customerRepository = customerRepository;
         this.roomRepository = roomRepository;
+        this.billingRepository = billingRepository;
     }
 
     @Override
@@ -59,12 +65,10 @@ public class ReservationServiceImpl implements ReservationService {
         return mapToDTO(updateReservation);
     }
 
+    @Transactional
     @Override
     public void deleteReservation(long id) {
-
-        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reservation", "id", id));
-        reservationRepository.delete(reservation);
-
+        reservationRepository.deleteById(id);
     }
 
     @Override

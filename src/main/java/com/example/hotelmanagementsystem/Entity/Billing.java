@@ -28,7 +28,9 @@ public class Billing {
     @Column(name = "status", nullable = false)
     private String status;  // e.g., PAID, UNPAID, CANCELLED
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reservation_idFK", nullable = false)
     private Reservation reservation;
+
+
 }

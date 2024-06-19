@@ -65,8 +65,9 @@ public class BillingServiceImpl implements BillingService {
     @Override
     public void deleteBillingById(long id) {
 
-        Billing billing = billingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Billing", "id", id));
-        billingRepository.delete(billing);
+//        Billing billing = billingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Billing", "id", id));
+//        billingRepository.delete(billing);
+        billingRepository.deleteByReservationId(id);
 
     }
 

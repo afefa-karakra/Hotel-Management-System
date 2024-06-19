@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -130,5 +131,10 @@ public class BillingController {
         return ResponseEntity.ok(updatedBilling);
     }
 
-
+    @ApiOperation(value = "Delete Billing by ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBilling (@PathVariable(name = "id") long id){
+        billingService.deleteBillingById(id);
+        return new ResponseEntity<>("Deleted successfully!", HttpStatus.OK);
+    }
 }

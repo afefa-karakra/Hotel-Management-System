@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -80,10 +81,23 @@ public class ReservationController {
                     )
             }
     )
+    //        reservationService.deleteReservation(id);
+//        return new ResponseEntity<>("Deleted successfully!", HttpStatus.OK);
     public ResponseEntity<String> deleteReservation (@PathVariable long id){
-        reservationService.deleteReservation(id);
-        return new ResponseEntity<>("Deleted successfully!", HttpStatus.OK);
+
+
+        try {
+            reservationService.deleteReservation(id);
+            return new ResponseEntity<>("Deleted successfully!", HttpStatus.OK);
+        } catch (DataIntegrityViolationException e) {
+            // Log the error and return a meaningful response
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (Exception e) {
+            // Handle other exceptions
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
     @ApiOperation(value = "Get all Reservation")
     @GetMapping

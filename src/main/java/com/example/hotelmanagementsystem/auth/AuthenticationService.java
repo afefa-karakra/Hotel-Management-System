@@ -48,7 +48,7 @@ public class AuthenticationService {
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
         .customerId((int) customer.getId())
-        .role(Role.CUSTOMER)
+        .role(Role.ADMIN)
         .build();
 
     var savedUser = repository.save(user);

@@ -22,4 +22,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT r FROM Reservation r WHERE r.ReservationDate = :ReservationDate")
     List<Reservation> getReservationByDate(@Param("ReservationDate") Date ReservationDate);
 
+
+    void deleteById(Long id);
+
 }

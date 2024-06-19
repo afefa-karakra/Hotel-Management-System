@@ -20,6 +20,9 @@ configurations {
 repositories {
     mavenCentral()
 }
+bootJar {
+    archiveFileName = 'Hotel-Management-System.jar'
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -56,6 +59,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()
