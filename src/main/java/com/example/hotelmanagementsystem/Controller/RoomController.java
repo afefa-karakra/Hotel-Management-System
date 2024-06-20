@@ -9,6 +9,7 @@ import com.example.hotelmanagementsystem.Service.Interface.CustomerService;
 import com.example.hotelmanagementsystem.Service.Interface.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "Room")
+//@Api(tags = "Room")
+@Tag(name = "Room")
 @RestController
 @RequestMapping("/api/v1/room")
 public class RoomController {

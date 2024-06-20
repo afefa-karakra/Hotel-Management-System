@@ -6,6 +6,7 @@ import com.example.hotelmanagementsystem.Service.Interface.RoomService;
 import com.example.hotelmanagementsystem.Service.Interface.RoomServiceV2;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "RoomV2")
+//@Api(tags = "RoomV2")
+@Tag(name = "RoomV2")
 @RestController
 @RequestMapping()
 public class RoomControllerV2 {

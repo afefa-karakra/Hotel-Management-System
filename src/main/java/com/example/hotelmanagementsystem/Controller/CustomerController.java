@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,8 @@ import static com.example.hotelmanagementsystem.user.Role.ADMIN;
 // The @RestController annotation informs Spring that this class is a controller that should process HTTP requests
 // The @RequestMapping("/api/v1/customers") annotation maps this controller to the specified URL path,
 // which means that any requests starting with /api/v1/customers will be handled by methods in this controller
-@Api(tags = "Customers")
+//@Api(tags = "Customers")
+@Tag(name = "Customers")
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
